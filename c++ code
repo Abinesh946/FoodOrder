@@ -1,0 +1,192 @@
+#include <fstream>
+#include <iomanip>
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main() {
+  string user;
+  string pass;
+  string enteredUser1 = "Nimalan";
+  string enteredPass1 = "123abc+-";
+  string order;
+
+  double rice = 5;
+  double riceNum1 = 0;
+  double riceNum2 = 0;
+  double french = 2.25;
+  double frenchNum1 = 0;
+  double frenchNum2 = 0;
+  double tuna = 7;
+  double tunaNum1 = 0;
+  double tunaNum2 = 0;
+  double grilled = 6.75;
+  double grilledNum1 = 0;
+  double grilledNum2 = 0;
+  double samosa = 1;
+  double samosaNum1 = 0;
+  double samosaNum2 = 0;
+  double drinks = 1.25;
+  double drinksNum1 = 0;
+  double drinksNum2 = 0;
+  double subtotal = 0;
+
+  int infLoop = 1;
+
+  char choice;
+
+  while (infLoop > 0) {
+
+    cout << "Enter your user: ";
+    cin >> user;
+
+    cout << "Enter your password: ";
+    cin >> pass;
+    
+    if (enteredUser1 == user && enteredPass1 == pass) {
+      cout << "\n";
+      cout << "Welcome " << user << "!" << endl;
+      cout << "Select from the following menu choices: " << endl;
+      cout << "R - Rice Pilaf $5.00" << endl;
+      cout << "F - French Potatoes $2.25" << endl;
+      cout << "T - Tuna on Toast $7.00" << endl;
+      cout << "G - Grilled Cheese $6.75" << endl;
+      cout << "S - Veggie Samosa $1.00" << endl;
+      cout << "D - Soft Drinks $1.25" << endl;
+      cout << "$ - Proceed to Pay" << endl;
+      cout << "\n";
+
+      cout << "Enter your choice: ";
+      cin >> choice;
+
+      while (choice != '$') {
+        if (choice == 'R') {
+          subtotal += rice;
+          riceNum1++;
+          riceNum2++;
+        } else if (choice == 'F') {
+          subtotal += french;
+          frenchNum1++;
+          frenchNum2++;
+        } else if (choice == 'T') {
+          subtotal += tuna;
+          tunaNum1++;
+          tunaNum2++;
+        } else if (choice == 'G') {
+          subtotal += grilled;
+          grilledNum1++;
+          grilledNum2++;
+        } else if (choice == 'S') {
+          subtotal += samosa;
+          samosaNum1++;
+          samosaNum2++;
+        } else if (choice == 'D') {
+          subtotal += drinks;
+          drinksNum1++;
+          drinksNum2++;
+        } else {
+          cout << "That is not a proper menu choice. Try again" << endl;
+          cout << "\n";
+          cout << "Enter another choice: ";
+          cin >> choice;
+        }
+
+        cout << "Enter another choice: ";
+        cin >> choice;
+
+        if (choice == '$') {
+          cout << "\n";
+          cout << setw(13) << "Receipt" << endl;
+          cout << "---------------------" << endl;
+          while (riceNum1 > 0) {
+            cout << "Rice Pilaf" << setw(11) << "$5.00" << endl;
+            riceNum1--;
+          }
+          while (frenchNum1 > 0) {
+            cout << "French Potatoes" << setw(6) << "$2.25" << endl;
+            frenchNum1--;
+          }
+          while (tunaNum1 > 0) {
+            cout << "Tuna on Toast" << setw(8) << "$7.00" << endl;
+            tunaNum1--;
+          }
+          while (grilledNum1 > 0) {
+            cout << "Grilled Cheese" << setw(7) << "$6.75" << endl;
+            grilledNum1--;
+          }
+          while (samosaNum1 > 0) {
+            cout << "Veggie Samosa" << setw(8) << "$1.00" << endl;
+            samosaNum1--;
+          }
+          while (drinksNum1 > 0) {
+            cout << "Soft Drink" << setw(11) << "$1.25" << endl;
+            drinksNum1--;
+          }
+          cout << "Subtotal: " << setw(7) << "$" << fixed << setprecision(2)
+               << subtotal << endl;
+          cout << "Tax: " << setw(12) << "$" << fixed << setprecision(2)
+               << subtotal * 0.06 << endl;
+          cout << "Grand Total: " << setw(4) << "$" << fixed << setprecision(2)
+               << subtotal * 1.06 << endl;
+          cout << "\n";
+
+          cout << "Would you like to accept this total or cancel the order? "
+                  "(accept or cancel): "
+               << endl;
+          cin >> order;
+          cout << "\n";
+
+          if (order == "accept") {
+            ofstream file;
+            file.open("order.txt");
+            file << "\n";
+            file << "Username: " << user << endl;
+            file << "Password: " << pass << endl;
+            file << "\n";
+            file << setw(13) << "Receipt" << endl;
+            file << "---------------------" << endl;
+            while (riceNum2 > 0) {
+              file << "Rice Pilaf" << setw(11) << "$5.00" << endl;
+              riceNum2--;
+            }
+            while (frenchNum2 > 0) {
+              file << "French Potatoes" << setw(6) << "$2.25" << endl;
+              frenchNum2--;
+            }
+            while (tunaNum2 > 0) {
+              file << "Tuna on Toast" << setw(8) << "$7.00" << endl;
+              tunaNum2--;
+            }
+            while (grilledNum2 > 0) {
+              file << "Grilled Cheese" << setw(7) << "$6.75" << endl;
+              grilledNum2--;
+            }
+            while (samosaNum2 > 0) {
+              file << "Veggie Samosa" << setw(8) << "$1.00" << endl;
+              samosaNum2--;
+            }
+            while (drinksNum2 > 0) {
+              file << "Soft Drink" << setw(11) << "$1.25" << endl;
+              drinksNum2--;
+            }
+            file << "Subtotal: " << setw(7) << "$" << fixed << setprecision(2)
+                 << subtotal << endl;
+            file << "Tax: " << setw(12) << "$" << fixed << setprecision(2)
+                 << subtotal * 0.06 << endl;
+            file << "Grand Total: " << setw(4) << "$" << fixed
+                 << setprecision(2) << subtotal * 1.06 << endl;
+            file << "\n";
+            break;
+          }
+          if (order == "cancel") {
+            break;
+          }
+        }
+      }
+    } else {
+      cout << "Invalid username or password please try again";
+      break;
+    }
+  }
+}
